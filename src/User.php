@@ -26,26 +26,45 @@ class User {
     }
 
     function setUsername($username) {
-        $this->username = $username;
-        return $this;
+        if ((ctype_alnum($username)) && (!ctype_digit($username))) {
+            if ((strlen($username) > 3) && (strlen($username) < 15)) {
+                $this->username = $username;
+
+                return $this;
+            }
+        }
+
+        return false;
     }
 
     function setHashPass($password) {
-        $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $this->hashPass = $hashedPassword;
-        return $this;
+        if (strlen($password) < 8 || strlen($password) > 20) {
+
+            return false;
+        } else {
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $this->hashPass = $hashedPassword;
+
+            return $this;
+        }
     }
 
-    
-    function passwordVerify ($password) {
+    function passwordVerify($password) {
         if (password_verify($password, $this->hashPass)) {
             return true;
         }
     }
-    
+
     function setEmail($email) {
-        $this->email = $email;
-        return $this;
+        $emailToSave = filter_var($email, FILTER_SANITIZE_EMAIL);
+        if (filter_var($emailToSave, FILTER_VALIDATE_EMAIL) == false || ($emailToSave != $email)) {
+
+            return false;
+        } else {
+            $this->email = $emailToSave;
+
+            return $this;
+        }
     }
 
     public function saveToDB(PDO $conn) {
@@ -79,8 +98,8 @@ class User {
                 return false;
             }
         }
-    }        
-    
+    }
+
     static public function loadUserByEmail(PDO $conn, $email) {
 
         $sql = "SELECT * FROM `User` WHERE `email` = :email;";
@@ -100,56 +119,90 @@ class User {
                 $loadedUser->email = $row['email'];
 
                 return $loadedUser;
-                
             } else {
-                
+
                 return null;
             }
-            
         } catch (PDOException $ex) {
             echo $ex->getMessage() . '<hr>';
             return false;
         }
     }
     
-    static public function loadAllUsers(PDO $conn) {
-        $sql = "SELECT * FROM `User`;";
-        $users = [];
+    static public function loadUserByName(PDO $conn, $name) {
 
-        $result = $conn->query($sql);
-        if ($result !== false && $result->rowCount() != 0) {
-            foreach ($result as $row) {
+        $sql = "SELECT * FROM `User` WHERE `username` = :username;";
+        try {
+            $query = $conn->prepare($sql);
+            $result = $query->execute([
+                'username' => $name,
+            ]);
+
+            if ($result === true && $query->rowCount() > 0) {
+                $row = $query->fetch();
+
                 $loadedUser = new User();
                 $loadedUser->id = $row['id'];
                 $loadedUser->username = $row['username'];
                 $loadedUser->hashPass = $row['hashPass'];
                 $loadedUser->email = $row['email'];
 
-                $users[] = $loadedUser;
-            }
-        }
+                return $loadedUser;
+            } else {
 
-        return $users;
+                return null;
+            }
+        } catch (PDOException $ex) {
+            echo $ex->getMessage() . '<hr>';
+            return false;
+        }
+    }
+
+    static public function loadAllUsers(PDO $conn) {
+        $sql = "SELECT * FROM `User`;";
+        $users = [];
+        try {
+            $result = $conn->query($sql);
+            if ($result !== false && $result->rowCount() != 0) {
+                foreach ($result as $row) {
+                    $loadedUser = new User();
+                    $loadedUser->id = $row['id'];
+                    $loadedUser->username = $row['username'];
+                    $loadedUser->hashPass = $row['hashPass'];
+                    $loadedUser->email = $row['email'];
+
+                    $users[] = $loadedUser;
+                }
+            }
+
+            return $users;
+        } catch (Exception $ex) {
+            echo $ex->getMessage();
+        }
     }
 
     public function delete(PDO $conn) {
         if ($this->id != -1) {
             $sql = "DELETE FROM `User` WHERE `id` = :id;";
-            $query = $conn->prepare($sql);
-            $result = $query->execute([
-                'id' => $this->id,
-            ]);
 
-            if ($result === true) {
-                $this->id = -1;
+            try {
+                $query = $conn->prepare($sql);
+                $result = $query->execute([
+                    'id' => $this->id,
+                ]);
 
-                return true;
+                if ($result === true) {
+                    $this->id = -1;
+
+                    return true;
+                }
+
+                return false;
+            } catch (Exception $ex) {
+                echo $ex->getMessage();
             }
 
-            return false;
+            return true;
         }
-
-        return true;
     }
-
 }

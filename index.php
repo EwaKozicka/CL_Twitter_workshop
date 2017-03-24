@@ -33,7 +33,7 @@ if (isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
                     <span><i class="demo-icon icon-twitter"></i></span>E-mail &amp; password
                 </div>
                 <div class="inner-wrap">
-                    <label>Your e-mail <input type="email" name="email" /></label>
+                    <label>Your e-mail <input type="email" name="email"></label>
                     <label>Password <input type="password" name="password"></label>
                     
                     <?php
@@ -51,7 +51,7 @@ if (isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
                 <div class="button-section">
                     <button type="submit" name="submit">Ready!</button>
                     <span class="new-user">
-                        <a href="views/sign-up.php" alt="create account">I don't have an account yet. Create it!
+                        <a href="views/sign-up.php" alt="create account">I don't have an account yet. Create it!</a>
                     </span>
                 </div>
             </form>

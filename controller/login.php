@@ -21,17 +21,17 @@ if ("POST" === $_SERVER['REQUEST_METHOD']) {
                 header('Location: ../views/main.php');
                 
             } else {
-                $_SESSION['error'] = '<span style="color: red">Incorrect login or password!</span>';
+                $_SESSION['error'] = '<span class="error">Incorrect login or password!</span>';
                 header('Location: ../index.php');
             }
             
         } else {
-            $_SESSION['error'] = '<span style="color: red">Incorrect login or password!</span>';
+            $_SESSION['error'] = '<span class="error">Incorrect login or password!</span>';
             header('Location: ../index.php');
         }
         
     } else {
-        $_SESSION['empty'] = '<span style="color: red">Fill all the fields in!</span>';
+        $_SESSION['empty'] = '<span class="error"">Fill out all the fields!</span>';
         header('Location: ../index.php');
     }
     
