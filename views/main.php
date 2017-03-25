@@ -93,7 +93,7 @@ if (isset($_SESSION['error8b'])) {
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="edit.php"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                        <a href="../controller/user.php"><span class="glyphicon glyphicon-user"></span> Profile</a>
                     </li>
                     <li>
                         <a href="../controller/logout.php"><span class="glyphicon glyphicon-off"></span> Log out</a>
@@ -125,7 +125,7 @@ if (isset($_SESSION['error8b'])) {
                 if (isset($_SESSION['show'])) {
                     foreach ($_SESSION['show'] as $tweet) {
                         foreach ($tweet as $tweetId => $text) {
-                            echo '<a class="plain" href="post.php">' . $text . '</a>';
+                            echo '<a class="plain" href="../controller/post.php?id='.$tweetId.'">' . $text . '</a>';
                         }
                     }
                 }

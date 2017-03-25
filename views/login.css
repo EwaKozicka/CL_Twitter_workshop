@@ -86,7 +86,7 @@ body {
     margin-top: -3px;
 }
 
-.form-style-10 button[type="submit"]{
+.form-style-10 button[type="submit"], button[type="button"]{
     background: #2A88AD;
     padding: 8px 20px 8px 20px;
     border-radius: 5px;
@@ -102,7 +102,7 @@ body {
     font-size: 15px;
 }
 
-.form-style-10 button[type="submit"]:hover{
+.form-style-10 button[type="submit"]:hover, button[type="button"]:hover {
     background: #247b9e;
     -moz-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
     -webkit-box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
@@ -119,4 +119,9 @@ body {
 
 .error {
     color: red;
+}
+
+
+.edit-button {
+   margin-left: 165px;
 }

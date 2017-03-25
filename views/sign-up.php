@@ -74,12 +74,8 @@ session_start();
                         echo $_SESSION['form_password'];
                         unset($_SESSION['form_password']);
                     }
-                    ?>"><?php 
-                    if(isset($_SESSION['form_password'])) {
-                        echo $_SESSION['form_password'];
-                        unset($_SESSION['form_password']);
-                    }
-                    ?></label>
+                    ?>">
+                        </label>
 
                     <?php
                     if (isset($_SESSION['error4'])) {
