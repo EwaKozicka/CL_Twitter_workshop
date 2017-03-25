@@ -1,6 +1,8 @@
 <?php
 
 require_once '../src/User.php';
+require_once '../src/Tweet.php';
+require_once '../src/functions.php';
 
 if (!isset($_SESSION)) {
     session_start();
@@ -20,8 +22,9 @@ $error5 = '<span class = "error">Both passwords should be the same!</span>';
 $error8a = '<span class = "error">Email already taken</span>';
 $error8b = '<span class = "error">Username already taken</span>';
 
-$currentName = $_SESSION['username'];
-$thisUser = User::loadUserByName($conn, $currentName);
+
+$thisUser = User::loadUserById($conn, $_SESSION['userId']);
+$currentName = $thisUser->getUsername();
 $currentEmail = $thisUser->getEmail();
 $_SESSION['email'] = $currentEmail;
 
@@ -47,12 +50,13 @@ if ("POST" === $_SERVER["REQUEST_METHOD"]) {
             
 // walidacja username
             if (!empty($username)) {
-                if (is_string($thisUser->setUsername($username))) {
+                $newName = $thisUser->setUsername($username);
+                if ($newName == false) {
                     $ok = false;
                     $_SESSION['error2'] = $error2;
                 }
             } 
-            //lub z else - jeśli else to username = stary username
+            // else to username = stary username
             
 
 // walidacja maila
@@ -111,8 +115,8 @@ if ("POST" === $_SERVER["REQUEST_METHOD"]) {
                 $_SESSION['username'] = $username;
 //                $_SESSION['userId'] = $user->getId();
                 
-//                $tweets = Tweet::loadAllTweets($conn);
-//                $_SESSION['show'] = getTweets($conn, $tweets);
+                $tweets = Tweet::loadAllTweets($conn);
+                $_SESSION['show'] = getTweets($conn, $tweets);
                       
                 header("Location: ../views/edit.php");
                 

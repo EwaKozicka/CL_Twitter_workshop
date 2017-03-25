@@ -6,6 +6,11 @@ if (!isset($_SESSION['logged'])) {
     header('Location: ../index.php');
     exit();
 }
+
+//if (isset($_SESSION['show'])) {
+//    unset($_SESSION['show']);
+//}
+
 //wykasowanie danych sesyjnych pozostałych po ewentualnych błędach rejestracji i pamiętających dane wpisane do formularza
 
 if (isset($_SESSION['form_username'])) {
@@ -122,6 +127,7 @@ if (isset($_SESSION['error8b'])) {
             </form>
             <div>
                 <?php
+                //session show definiowane w pliku login, signup
                 if (isset($_SESSION['show'])) {
                     foreach ($_SESSION['show'] as $tweet) {
                         foreach ($tweet as $tweetId => $text) {

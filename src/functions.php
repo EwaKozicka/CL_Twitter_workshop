@@ -15,12 +15,15 @@ function getTweets($conn, $array) {
         $tweetId = $tweet->getId();
         
         $nick = User::loadUserById($conn, $userId)->getUsername();
+//        $nick = $_SESSION['username'];
+        
         $fullTweets[][$tweetId] = '<div><span class="tweet_header">'
                 . $date . '<a class="plain" href="../controller/tweet.php?name=' . $nick . '"> ' . $nick . '</a> writes: </span><br>'
                 . '<span class="text">' . $text . '</span><br>'
                 . '<div class="right">Comments: $number</div>'
                 . '<hr></div>';
     }
+    
     
     $tweets = array_reverse($fullTweets);
     return $tweets;
@@ -29,13 +32,16 @@ function getTweets($conn, $array) {
 
 //require_once 'Tweet.php';
 //require_once 'User.php';
-
-
-//$myTweets = Tweet::loadTweetByUserId($conn, 2);
+//
+//
+//$myTweets = Tweet::loadTweetByUserId($conn, 3);
 //var_dump($myTweets);
 //echo '<hr>';
 //var_dump(getTweets($conn, $myTweets));
 //echo '<hr>';
+
+
+
 
 function getComments($conn, $array) {
     foreach ($array as $comment) {

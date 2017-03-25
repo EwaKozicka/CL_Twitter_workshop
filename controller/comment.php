@@ -61,6 +61,11 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
         getComments($conn, $comments);
 
         header('Location: ../views/post.php');
+    } else if (isset($_GET['name']) && !empty($_GET['name'])) {
+        $name = $_GET['name'];
+        header('Location: ./tweet.php?name='.$name);
+    } else {
+        header('Location: ../views/main.php');
     }
 }
 
