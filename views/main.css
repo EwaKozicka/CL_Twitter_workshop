@@ -39,19 +39,18 @@ background-image: url("./sativa/sativa.png");
     box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
 }
 
-
-.navbar, a, ul, li {
+.navbar, a, li{
     color : #fff !important;
     font: normal 14px 'Bitter', serif;
     background-color: #2A88AD !important;
 }
-
-li {
-    margin-top: 10px;
+ .navbar a:hover {
+    background-color: #247b9e !important;
 }
 
-.active {
-    background-color: #247b9e !important;
+.hello {
+    font-size: 26px;
+    padding-top: 10px;
 }
 
 .form-style-10{
@@ -139,3 +138,56 @@ li {
     box-shadow: inset 0px 2px 2px 0px rgba(255, 255, 255, 0.28);
 }
 
+.tweet_header {
+    color: #2A88AD;
+    font-weight: bold;
+}
+
+.text {
+    color: #333;
+    font-style: italic;
+    font-weight: bold;
+    display: inline-block;
+    padding: 10px 0 10px 20px;
+}
+
+.add, .add:hover {
+    background: #ccc !important;
+    padding: 5px 7px !important;
+    border-radius: 5px !important;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    color: #000 !important;
+  
+    border: 1px solid #bbb !important;
+    font-size: 12px !important;
+}
+
+.add:hover {
+    background: #aaa !important;
+
+}
+
+.middle {
+    text-align: center;
+}
+
+textarea {
+    resize: none;
+}
+
+.error {
+    color: red;
+}
+
+.plain {
+    background-color: white !important;
+    color: #2A88AD !important;
+    font-weight: bold;
+}
+
+.msg {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    float: right !important;
+}

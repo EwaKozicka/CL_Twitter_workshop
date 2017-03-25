@@ -25,6 +25,14 @@ class User {
         return $this->email;
     }
 
+    function getId() {
+        return $this->id;
+    }
+    /**
+     * 
+     * @param type $username //string
+     * @return boolean|\User
+     */
     function setUsername($username) {
         if ((ctype_alnum($username)) && (!ctype_digit($username))) {
             if ((strlen($username) > 3) && (strlen($username) < 15)) {
@@ -36,7 +44,11 @@ class User {
 
         return false;
     }
-
+/**
+ * 
+ * @param type $password //string
+ * @return boolean|\User
+ */
     function setHashPass($password) {
         if (strlen($password) < 8 || strlen($password) > 20) {
 
@@ -54,7 +66,11 @@ class User {
             return true;
         }
     }
-
+/**
+ * 
+ * @param type $email //string
+ * @return boolean|\User
+ */
     function setEmail($email) {
         $emailToSave = filter_var($email, FILTER_SANITIZE_EMAIL);
         if (filter_var($emailToSave, FILTER_VALIDATE_EMAIL) == false || ($emailToSave != $email)) {
@@ -66,7 +82,11 @@ class User {
             return $this;
         }
     }
-
+/**
+ * 
+ * @param PDO $conn
+ * @return boolean
+ */
     public function saveToDB(PDO $conn) {
         if ($this->id == -1) {
             $sql = 'INSERT INTO `User`(`username`, `email`, `hashPass`) VALUES (:username, :email, :pass);';
@@ -99,7 +119,12 @@ class User {
             }
         }
     }
-
+/**
+ * 
+ * @param PDO $conn
+ * @param type $email
+ * @return boolean|\User
+ */
     static public function loadUserByEmail(PDO $conn, $email) {
 
         $sql = "SELECT * FROM `User` WHERE `email` = :email;";
@@ -128,7 +153,12 @@ class User {
             return false;
         }
     }
-    
+    /**
+     * 
+     * @param PDO $conn
+     * @param type $name
+     * @return boolean|\User
+     */
     static public function loadUserByName(PDO $conn, $name) {
 
         $sql = "SELECT * FROM `User` WHERE `username` = :username;";
@@ -157,7 +187,40 @@ class User {
             return false;
         }
     }
+    
+    static public function loadUserById(PDO $conn, $id) {
 
+        $sql = "SELECT * FROM `User` WHERE `id` = :id;";
+        try {
+            $query = $conn->prepare($sql);
+            $result = $query->execute([
+                'id' => $id,
+            ]);
+
+            if ($result === true && $query->rowCount() > 0) {
+                $row = $query->fetch();
+
+                $loadedUser = new User();
+                $loadedUser->id = $row['id'];
+                $loadedUser->username = $row['username'];
+                $loadedUser->hashPass = $row['hashPass'];
+                $loadedUser->email = $row['email'];
+
+                return $loadedUser;
+            } else {
+
+                return null;
+            }
+        } catch (PDOException $ex) {
+            echo $ex->getMessage() . '<hr>';
+            return false;
+        }
+    }
+/**
+ * 
+ * @param PDO $conn
+ * @return \User
+ */
     static public function loadAllUsers(PDO $conn) {
         $sql = "SELECT * FROM `User`;";
         $users = [];
@@ -180,7 +243,11 @@ class User {
             echo $ex->getMessage();
         }
     }
-
+/**
+ * 
+ * @param PDO $conn
+ * @return boolean
+ */
     public function delete(PDO $conn) {
         if ($this->id != -1) {
             $sql = "DELETE FROM `User` WHERE `id` = :id;";

@@ -28,7 +28,7 @@ if (isset($_SESSION['logged']) && ($_SESSION['logged']==true)) {
     <body> 
         <div class="form-style-10">
             <h1>Log in!<span>Discover the power of MyTwitter!</span></h1>
-            <form action="controller/login.php" method="post">
+            <form action="./controller/login.php" method="post">
                 <div class="section">
                     <span><i class="demo-icon icon-twitter"></i></span>E-mail &amp; password
                 </div>

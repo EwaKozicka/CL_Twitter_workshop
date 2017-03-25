@@ -1,0 +1,1 @@
+CREATE TABLE `MyTwitter`.`Tweet` ( `id` INT NOT NULL AUTO_INCREMENT , `userId` INT NOT NULL , `text` VARCHAR(140) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL , `creationDate` DATETIME NOT NULL , PRIMARY KEY (`id`), FOREIGN KEY (`userId`) REFERENCES User(`id`)) ENGINE = InnoDB;

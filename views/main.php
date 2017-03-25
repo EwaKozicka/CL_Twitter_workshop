@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 if (!isset($_SESSION['logged'])) {
     header('Location: ../index.php');
     exit();
@@ -18,6 +19,12 @@ if (isset($_SESSION['form_password'])) {
 }
 if (isset($_SESSION['form_agree'])) {
     unset($_SESSION['form_agree']);
+}
+if (isset($_SESSION['error'])) {
+    unset($_SESSION['error']);
+}
+if (isset($_SESSION['empty'])) {
+    unset($_SESSION['empty']);
 }
 if (isset($_SESSION['error0'])) {
     unset($_SESSION['error0']);
@@ -71,38 +78,55 @@ if (isset($_SESSION['error8b'])) {
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                 <div class="navbar-header hello">
-                    <h2><?= "Hello " . $_SESSION['username'] . "!" ?></h2>
+                    <?= "Hello " . $_SESSION['username'] . "!" ?>
                 </div>
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
-                    <li><a href="tweets.php"><span class="glyphicon glyphicon-pencil"></span> Tweets</a></li>
-                    <li><a href="msg.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li>
+                    <li class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href="../controller/tweet.php"><span class="glyphicon glyphicon-pencil"></span> Tweets</a>
+                    </li>
+                    <li>
+                        <a href="msg.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
+                    </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="edit.php"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                    <li><a href="../controller/logout.php"><span class="glyphicon glyphicon-off"></span> Log out</a></li>
+                    <li>
+                        <a href="edit.php"><span class="glyphicon glyphicon-user"></span> Profile</a>
+                    </li>
+                    <li>
+                        <a href="../controller/logout.php"><span class="glyphicon glyphicon-off"></span> Log out</a>
+                    </li>
                 </ul>
             </div>
         </nav>
 
         <div class="form-style-10">
             <h3>Tweet something!<span>Share your thoughts!</span></h3>
-            <form action="controller/tweet.php" method="post">
+            <form action="../controller/tweet.php" method="post">
                 <div class="inner-wrap">
-                    <label>Write your message here:<br> <textarea cols ="55" rows="3" name="tweet"></textarea></label>
+                    <?php if(isset($_SESSION['toolong'])) {
+                        echo $_SESSION['toolong'];
+                        unset($_SESSION['toolong']);
+                    }?>
+                    
+                    <label>Write your message here:<br> <textarea cols="50" rows="3" name="tweet"></textarea></label>
 
                     <div class="button-section">
                         <button type="submit" name="submit">Publish!</button>
                     </div>
-
                 </div>
-
             </form>
             <div>
-                Tweet 1<hr>
-                Tweet 1<hr>
-                Tweet 1<hr>
-                Tweet 1<hr>
+                <?php
+                
+                if (isset($_SESSION['show'])) {
+                    foreach ($_SESSION['show'] as $key => $tweet) {
+                        echo $tweet;
+                    }
+                }
+                ?>
             </div>
         </div>
 
