@@ -106,11 +106,13 @@ if (isset($_SESSION['error8b'])) {
             <h3>Tweet something!<span>Share your thoughts!</span></h3>
             <form action="../controller/tweet.php" method="post">
                 <div class="inner-wrap">
-                    <?php if(isset($_SESSION['toolong'])) {
+                    <?php
+                    if (isset($_SESSION['toolong'])) {
                         echo $_SESSION['toolong'];
                         unset($_SESSION['toolong']);
-                    }?>
-                    
+                    }
+                    ?>
+
                     <label>Write your message here:<br> <textarea cols="50" rows="3" name="tweet"></textarea></label>
 
                     <div class="button-section">
@@ -120,10 +122,11 @@ if (isset($_SESSION['error8b'])) {
             </form>
             <div>
                 <?php
-                
                 if (isset($_SESSION['show'])) {
-                    foreach ($_SESSION['show'] as $key => $tweet) {
-                        echo $tweet;
+                    foreach ($_SESSION['show'] as $tweet) {
+                        foreach ($tweet as $tweetId => $text) {
+                            echo '<a class="plain" href="post.php">' . $text . '</a>';
+                        }
                     }
                 }
                 ?>

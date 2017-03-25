@@ -55,14 +55,16 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
         } else {
             $_SESSION['whoseTweets'] = 'Your';
             $myTweets = Tweet::loadTweetByUserId($conn, $_SESSION['userId']);
-            $_SESSION['tweets'] = getTweets($conn, $myTweets);
+            $_SESSION['myTweets'] = getTweets($conn, $myTweets);
             header('Location: ../views/tweets.php');
         }
     } else {
         $_SESSION['whoseTweets'] = 'Your';
         $myTweets = Tweet::loadTweetByUserId($conn, $_SESSION['userId']);
-
-        $_SESSION['tweets'] = getTweets($conn, $myTweets);
+        if ($myTweets != 0) {
+            $_SESSION['myTweets'] = getTweets($conn, $myTweets);
+        }
+        
         header('Location: ../views/tweets.php');
     }
 }
