@@ -38,49 +38,49 @@ if (!isset($_SESSION['logged'])) {
                     <!--username-->
 
                     <label>Change username <input type="text" name="name" placeholder="Your nickname..." value="<?php
-if (isset($_SESSION['username'])) {
-    echo $_SESSION['username'];
-}
-?>"></label>
+                        if (isset($_SESSION['username'])) {
+                            echo $_SESSION['username'];
+                        }
+                        ?>"></label>
 
-                        <?php
-                                                  if (isset($_SESSION['error2'])) {
-                                                      echo $_SESSION['error2'];
-                                                      unset($_SESSION['error2']);
-                                                  }
-                                                  if (isset($_SESSION['error8b'])) {
-                                                      echo $_SESSION['error8b'];
-                                                      unset($_SESSION['error8b']);
-                                                  }
-                                                  ?>
+                    <?php
+                    if (isset($_SESSION['error2'])) {
+                        echo $_SESSION['error2'];
+                        unset($_SESSION['error2']);
+                    }
+                    if (isset($_SESSION['error8b'])) {
+                        echo $_SESSION['error8b'];
+                        unset($_SESSION['error8b']);
+                    }
+                    ?>
                     <!--email-->
                     <label>Change e-mail 
                         <input type="email" name="email" placeholder="Your e-mail..." value="<?php
-                    if (isset($_SESSION['email'])) {
-                        echo $_SESSION['email'];
-                    }
-                                                  ?>"></label>
+                        if (isset($_SESSION['email'])) {
+                            echo $_SESSION['email'];
+                        }
+                        ?>"></label>
 
-                        <?php
-                               if (isset($_SESSION['error3'])) {
-                                   echo $_SESSION['error3'];
-                                   unset($_SESSION['error3']);
-                               }
-                               if (isset($_SESSION['error8a'])) {
-                                   echo $_SESSION['error8a'];
-                                   unset($_SESSION['error8a']);
-                               }
-                               ?>
+                    <?php
+                    if (isset($_SESSION['error3'])) {
+                        echo $_SESSION['error3'];
+                        unset($_SESSION['error3']);
+                    }
+                    if (isset($_SESSION['error8a'])) {
+                        echo $_SESSION['error8a'];
+                        unset($_SESSION['error8a']);
+                    }
+                    ?>
 
                     <!--password-->
                     <label>Change password <input type="password" name="password1" value="<?php ?>"></label>
 
-<?php
-if (isset($_SESSION['error4'])) {
-    echo $_SESSION['error4'];
-    unset($_SESSION['error4']);
-}
-?>
+                    <?php
+                    if (isset($_SESSION['error4'])) {
+                        echo $_SESSION['error4'];
+                        unset($_SESSION['error4']);
+                    }
+                    ?>
 
                     <!--password confirmation-->
                     <label>Confirm password<input type="password" name="password2"></label>
@@ -102,8 +102,8 @@ if (isset($_SESSION['error4'])) {
                     </div>
             </form>
         </div>
-                
-                <!--go back-->
+
+        <!--go back-->
         <form action="../views/main.php">
             <button type="submit"><span class='glyphicon glyphicon-arrow-left'></span> Go back!</button>
         </form>

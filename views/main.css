@@ -191,3 +191,8 @@ textarea {
     margin-bottom: 15px;
     float: right !important;
 }
+
+.right {
+    text-align: right;
+    color: #666;
+}

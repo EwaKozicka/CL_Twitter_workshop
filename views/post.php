@@ -7,7 +7,6 @@ if (!isset($_SESSION['logged'])) {
     header('Location: ../index.php');
     exit();
 }
-
 ?>
 <!DOCTYPE html>
 
@@ -44,27 +43,58 @@ if (!isset($_SESSION['logged'])) {
 
         <div class="form-style-10">
             <h3><?php
-                    
                 if (isset($_SESSION['date'])) {
                     echo $_SESSION['date'];
                     echo ' ';
                 }
-                
-                
+
+
                 if (isset($_SESSION['name'])) {
                     echo $_SESSION['name'];
                     echo ' writes: ';
                 }
                 ?></h3>
-            
-                <div>
-    <?php
-    if (isset($_SESSION['text'])) {
-        echo $_SESSION['text'];
+
+            <div>
+                <?php
+                if (isset($_SESSION['text'])) {
+                    echo $_SESSION['text'];
+                }
+                ?>
+            </div>
+            <form action="../controller/comment.php" method="post">
+                <br><label>Leave a comment:<br>
+                    <textarea cols ="32" rows="2" name="comment"></textarea></label>
+
+                <div class="middle"><button class="add" type="submit" name="submit">Add!</button></div>
+            </form>
+
+            <div>
+
+<?php
+echo '<br>';
+if (isset($_SESSION['toolong'])) {
+    echo $_SESSION['toolong'];
+    unset($_SESSION['toolong']);
+}
+
+if (isset($_SESSION['comment'])) {
+    foreach ($_SESSION['comment'] as $comment) {
+        foreach ($comment as $key => $value) {
+            echo $value;
+        }
     }
-    
+//    unset($_SESSION['comment']);
+} else {
+    echo "No comments yet.";
+}
 ?>
-                </div>
+
+            </div>
+
+
+
+
         </div>
     </body>
 </html>
