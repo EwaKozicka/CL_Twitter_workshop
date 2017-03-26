@@ -59,8 +59,10 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
         $commentsAmount = count($comments);
         $_SESSION['howManyComments'] = $commentsAmount;
         getComments($conn, $comments);
-
         header('Location: ../views/post.php');
+        
+        
+        
     } else if (isset($_GET['name']) && !empty($_GET['name'])) {
         $name = $_GET['name'];
         header('Location: ./tweet.php?name='.$name);

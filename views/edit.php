@@ -19,6 +19,7 @@ if (!isset($_SESSION['logged'])) {
         <title>MyTwitter - edit profile</title>
         <script src='https://www.google.com/recaptcha/api.js'></script>
         <script src="edit.js" type="text/javascript"></script>
+        <link href="../views/main.css" rel="stylesheet" type="text/css"/>
         <link href="../views/login.css" rel="stylesheet" type="text/css"/>
         <link href="../views/fontello-773d6be7/css/fontello.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
@@ -26,6 +27,31 @@ if (!isset($_SESSION['logged'])) {
 
     </head>
     <body>
+         <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header hello">
+                    <?= "Hello " . $_SESSION['username'] . "!" ?>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a href='../controller/tweet.php?name=<?php echo $_SESSION['username']; ?>'
+                           ><span class="glyphicon glyphicon-pencil"></span> Tweets</a>
+                    </li>
+                    <li>
+                        <a href="msg.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    
+                    <li>
+                        <a href="../controller/logout.php"><span class="glyphicon glyphicon-off"></span> Log out</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
 
         <div class="form-style-10">
             <h1>Edit profile!</h1>
@@ -103,9 +129,9 @@ if (!isset($_SESSION['logged'])) {
             </form>
         </div>
 
-        <!--go back-->
-        <form action="../views/main.php">
-            <button type="submit"><span class='glyphicon glyphicon-arrow-left'></span> Go back!</button>
+        
+        <form action="../controller/delete.php" method="post">
+            <button type="submit" class="danger"><span class='glyphicon glyphicon-alert'></span> Delete account!</button>
         </form>
     </body>
 </html>

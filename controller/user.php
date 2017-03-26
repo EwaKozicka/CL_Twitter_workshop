@@ -89,7 +89,7 @@ if ("POST" === $_SERVER["REQUEST_METHOD"]) {
 
                     if ($mailFromDB !== $currentEmail) {
                         $ok = false;
-                        $_SESSION['error8b'] = $error8b;
+                        $_SESSION['error8a'] = $error8a;
                     }
                 }   
             }

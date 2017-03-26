@@ -44,49 +44,58 @@ if (!isset($_SESSION['logged'])) {
 
         <div class="form-style-10">
             <h3><?php
-                if (isset($_SESSION['whoseTweets'])) {
-                    if ($_SESSION['whoseTweets'] != 'Your') {
-                        echo $_SESSION['whoseTweets'] . ' -';
-                    } else {
-                        echo $_SESSION['whoseTweets'];
-                    }
-                }
-                echo ' tweets!';
-                
-                if (isset($_SESSION['whoseTweets'])) {
-                    if ($_SESSION['whoseTweets'] != 'Your') {
-                        echo ''
-                        . '<div class="button-section">
+
+
+if (isset($_SESSION['whoseTweets-my'])){
+        echo $_SESSION['whoseTweets-my'];
+    }
+    
+    if (isset($_SESSION['whoseTweets']) ) {
+    echo $_SESSION['whoseTweets'];
+}
+    
+echo ' tweets!';
+
+if (isset($_SESSION['whoseTweets'])) {
+        echo ''
+        . '<div class="button-section">
                     <button class="msg" type="submit" name="submit"><span class="glyphicon glyphicon-envelope"></span>  Message ' . $_SESSION['whoseTweets'] . '!</button>
                 </div>';
-                    }
-                }
-                ?></h3>
+}
+?></h3>
 
 
 
             <div>
-                <?php
-                if (isset($_SESSION['tweets'])) {
-                    foreach ($_SESSION['tweets'] as $tweet) {
-                        foreach ($tweet as $tweetId => $text) {
-                            echo $text;
-                        }
-                    } 
-                    unset ($_SESSION['tweets']);
-                } else if (isset($_SESSION['myTweets'])) {
-                    foreach ($_SESSION['myTweets'] as $tweet) {
-                        foreach ($tweet as $tweetId => $text) {
-                            echo $text;
-                        }
-                    }
-                } else {
-                    echo "You have no tweets yet.";
-                }
-                ?>
+
+<?php
+if (isset($_SESSION['notweets'])) {
+    echo $_SESSION['notweets'];
+    unset($_SESSION['notweets']);
+    exit();
+}
+    if (isset($_SESSION['tweets'])) {
+        foreach ($_SESSION['tweets'] as $tweet) {
+            foreach ($tweet as $tweetId => $text) {
+                echo $text;
+            }
+        }
+
+        unset($_SESSION['tweets']);
+    } else if (isset($_SESSION['myTweets'])) {
+        foreach ($_SESSION['myTweets'] as $tweet) {
+            foreach ($tweet as $tweetId => $text) {
+                echo $text;
+            }
+        }
+    } else {
+        echo "You have no tweets yet.";
+    }
+
+?>
             </div>
-          
-            
+
+
         </div>
 
 

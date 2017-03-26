@@ -196,3 +196,12 @@ textarea {
     text-align: right;
     color: #666;
 }
+
+.danger {
+    background-color: #b30000 !important;
+    border-color: #800000 !important;
+}
+
+.danger:hover {
+    background-color: #800000 !important;
+}

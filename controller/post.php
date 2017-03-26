@@ -17,18 +17,18 @@ if (!isset($_SESSION['logged'])) {
 //preparing tweet for showing on screen
 if ('GET' === $_SERVER['REQUEST_METHOD']) {
     if (isset($_GET['id']) && !empty($_GET['id'])) {
-        $id = $_GET['id'];
-        $tweet = Tweet::loadTweetById($conn, $id);
+        $idTweeta = $_GET['id'];
+        $tweet = Tweet::loadTweetById($conn, $idTweeta);
         if ($tweet) {
             $_SESSION['date'] = $tweet->getCreationDate();
             $_SESSION['text'] = $tweet->getText();
             $uId = $tweet->getuserId();
             $user = User::loadUserById($conn, $uId);
             $_SESSION['name'] = $user->getUsername();
-            $_SESSION['postId'] = $id;
+            $_SESSION['postId'] = $idTweeta;
             
 //loading comments belonging to a post
-            $comments = Comment::loadAllCommentsByPostId($conn, $id);
+            $comments = Comment::loadAllCommentsByPostId($conn, $idTweeta);
             $_SESSION['comment'] = getComments($conn, $comments);
             $commentsAmount = count($comments);
             $_SESSION['howManyComments'] = $commentsAmount;

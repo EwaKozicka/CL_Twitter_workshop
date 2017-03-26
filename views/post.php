@@ -84,7 +84,6 @@ if (isset($_SESSION['comment'])) {
             echo $value;
         }
     }
-//    unset($_SESSION['comment']);
 } else {
     echo "No comments yet.";
 }

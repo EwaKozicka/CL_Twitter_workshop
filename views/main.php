@@ -90,7 +90,8 @@ if (isset($_SESSION['error8b'])) {
                         <a href="#">Home</a>
                     </li>
                     <li>
-                        <a href="../controller/tweet.php"><span class="glyphicon glyphicon-pencil"></span> Tweets</a>
+                        <a href='../controller/tweet.php?name=<?php echo $_SESSION['username']; ?>'
+                           ><span class="glyphicon glyphicon-pencil"></span> Tweets</a>
                     </li>
                     <li>
                         <a href="msg.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
@@ -127,7 +128,7 @@ if (isset($_SESSION['error8b'])) {
             </form>
             <div>
                 <?php
-                //session show definiowane w pliku login, signup
+                //session show definiowane w pliku login, signup,tweet
                 if (isset($_SESSION['show'])) {
                     foreach ($_SESSION['show'] as $tweet) {
                         foreach ($tweet as $tweetId => $text) {

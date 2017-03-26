@@ -17,8 +17,7 @@ function getTweets($conn, $array) {
         $nick = User::loadUserById($conn, $userId)->getUsername();
 //        $nick = $_SESSION['username'];
         
-        $fullTweets[][$tweetId] = '<div><span class="tweet_header">'
-                . $date . '<a class="plain" href="../controller/tweet.php?name=' . $nick . '"> ' . $nick . '</a> writes: </span><br>'
+        $fullTweets[][$tweetId] = '<div><span class="tweet_header"><a class="plain" href="../controller/post.php?id='.$tweetId.'">'.$date . '<a class="plain" href="../controller/tweet.php?name=' . $nick . '"> ' . $nick . '</a> writes: </span><br>'
                 . '<span class="text">' . $text . '</span><br>'
                 . '<div class="right">Comments: $number</div>'
                 . '<hr></div>';
