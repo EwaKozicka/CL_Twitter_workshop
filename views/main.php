@@ -94,7 +94,7 @@ if (isset($_SESSION['error8b'])) {
                            ><span class="glyphicon glyphicon-pencil"></span> Tweets</a>
                     </li>
                     <li>
-                        <a href="msg.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
+                        <a href="../controller/received.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -112,6 +112,7 @@ if (isset($_SESSION['error8b'])) {
             <h3>Tweet something!<span>Share your thoughts!</span></h3>
             <form action="../controller/tweet.php" method="post">
                 <div class="inner-wrap">
+    <!--if tweet was too long-->
                     <?php
                     if (isset($_SESSION['toolong'])) {
                         echo $_SESSION['toolong'];
@@ -128,7 +129,7 @@ if (isset($_SESSION['error8b'])) {
             </form>
             <div>
                 <?php
-                //session show definiowane w pliku login, signup,tweet
+                //session show defined in login, signup, tweet (get tweets function) - loads all tweets
                 if (isset($_SESSION['show'])) {
                     foreach ($_SESSION['show'] as $tweet) {
                         foreach ($tweet as $tweetId => $text) {

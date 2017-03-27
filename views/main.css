@@ -205,3 +205,39 @@ textarea {
 .danger:hover {
     background-color: #800000 !important;
 }
+
+.btn {
+    background-color: #2A88AD !important;
+}
+
+.badge {
+    background-color: #6CA8BD !important;
+}
+
+.read {
+    color: green !important;
+}
+
+.msg-header, .msg-link {
+    background-color: transparent !important;
+    color: #2A88AD;
+    font-weight: bold;
+}
+
+.msg-link-read {
+    background-color: transparent !important;
+    color: #2A88AD;
+    font-weight: normal;
+}
+
+.msg-link:hover {
+    color: #2A88AD !important;
+}
+
+.msg-text {
+    color: black;
+}
+
+.msg-text-read {
+    color: red;
+}

@@ -1,6 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", function () {
+    
     var button = document.querySelector('.edit-button');
 
     button.addEventListener("click", function () {
@@ -15,10 +16,31 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             }
         });
-
-
+        
+    
+    
+    
+    
+    
+    var msg = document.querySelector('#message');
+    
+    
+    msg.addEventListener("click", function (event) {
+          
+    
+        
+        
+        
+        
+        var confirmation = window.confirm("Send message?");
+        if (confirmation !== true) {
+            event.preventDefault();
+        }
+    })
+   
    
 
 
 
 });
+

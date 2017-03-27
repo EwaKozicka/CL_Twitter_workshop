@@ -34,14 +34,14 @@ if (!isset($_SESSION['logged'])) {
                 </div>
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="#">Home</a>
+                        <a href="main.php">Main page</a>
                     </li>
                     <li>
                         <a href='../controller/tweet.php?name=<?php echo $_SESSION['username']; ?>'
                            ><span class="glyphicon glyphicon-pencil"></span> Tweets</a>
                     </li>
                     <li>
-                        <a href="msg.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
+                        <a href="received.php"><span class="glyphicon glyphicon-envelope"></span> Messages</a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">

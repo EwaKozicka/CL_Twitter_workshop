@@ -22,15 +22,15 @@ if ("POST" === $_SERVER['REQUEST_METHOD']) {
         $tweet = $_POST['tweet'];
         $idTweeta = $_SESSION['userId'];
 
-        $newTweet = new Tweet();
-        if ($newTweet->setText($tweet) !== false) {
-            $newTweet->setUserId($idTweeta);
-            $newTweet->setCreationDate();
-            $newTweet->saveToDB($conn);
-            
+        $newMsg = new Tweet();
+        if ($newMsg->setText($tweet) !== false) {
+            $newMsg->setUserId($idTweeta);
+            $newMsg->setCreationDate();
+            $newMsg->saveToDB($conn);
+
             $tweets = Tweet::loadAllTweets($conn);
             $_SESSION['show'] = getTweets($conn, $tweets);
-            
+
             header('Location: ../views/main.php');
         } else {
             $_SESSION['toolong'] = '<span class="error">Tweets can\'t be longer than 140 chars!</span>';
@@ -46,11 +46,24 @@ if ("POST" === $_SERVER['REQUEST_METHOD']) {
 if ('GET' === $_SERVER['REQUEST_METHOD']) {
     if (isset($_GET['name']) && !empty($_GET['name'])) {
         $name = $_GET['name'];
-        if ($name != $_SESSION['username']) {
-            $_SESSION['whoseTweets'] = $name;
-            if(isset($_SESSION['whoseTweets-my'])) {
-//                unset($_SESSION['whoseTweets-my']);
+        $_SESSION['whoseTweets'] = $name;
+        
+        //logged user tweets to show
+        if ($name == $_SESSION['username']) {
+            
+            $myTweets = Tweet::loadTweetByUserId($conn, $_SESSION['userId']);
+            if (!empty($myTweets)) {
+                $_SESSION['myTweets'] = getTweets($conn, $myTweets);
+                header('Location: ../views/tweets.php');
+            } else {
+                header('Location: ../views/tweets.php');
             }
+        }
+
+        //other users tweets to show
+
+        if ($name !== $_SESSION['username']) {
+            
             $userId = User::loadUserByName($conn, $name)->getId();
             $userTweets = Tweet::loadTweetByUserId($conn, $userId);
             if (!empty($userTweets)) {
@@ -60,53 +73,10 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
                 $_SESSION['notweets'] = '<span class="error">This user has no tweets!</span>';
                 header('Location: ../views/tweets.php');
             }
-        } else {
-            $_SESSION['whoseTweets-my'] = 'Your';
-            if(isset($_SESSION['whoseTweets'])) {
-//                unset($_SESSION['whoseTweets']);
-            }
-            $myTweets = Tweet::loadTweetByUserId($conn, $_SESSION['userId']);
-            if (!empty($myTweets)) {
-                $_SESSION['myTweets'] = getTweets($conn, $myTweets);
-                header('Location: ../views/tweets.php');
-            } else {
-                header('Location: ../views/tweets.php');
-            }
-            
-        }
-        
-        
+        } 
     } else {
-        
-        header ('Location: ../views/tweets.php?name='.$_SESSION['username']);
-//        if (!isset($_SESSION['whoseTweets'])) {
-//            $_SESSION['whoseTweets'] = 'Your';
-//            $myTweets = Tweet::loadTweetByUserId($conn, $_SESSION['userId']);
-//            if ($myTweets != 0) {
-//                $_SESSION['myTweets'] = getTweets($conn, $myTweets);
-//            }
-//
-//            header('Location: ../views/tweets.php');
-//        } else {
-//            unset($_SESSION['whoseTweets']);
-//            header('Location: ../views/tweets.php');
-//        }
+        header('Location: ../views/main.php');
     }
+} else {
+    echo "What da fak? jak ty tu się dostałeś?";
 }
-//        if ($_SESSION['whoseTweets'] != 'Your') {
-//            //get their tweets
-//            $user = User::loadUserByName($conn, $_SESSION['whoseTweets']);
-//            $userid = $user->getId();
-//            $tweets = Tweet::loadTweetById($conn, $userid);
-//            if (!empty($tweets)) {
-//                $_SESSION['tweets'] = getTweets($conn, $tweets);
-//                header('Location: ../views/tweets.php');
-//            } else {
-//                $_SESSION['notweets'] = '<span class="error">This user has no tweets!</span>';
-//                header('Location: ../views/tweets.php');
-//            }
-//        } else if ($_SESSION['whoseTweets'] == 'Your') {
-//            $_SESSION['whoseTweets'] == 'Your';
-//        }
-//    }
-//}

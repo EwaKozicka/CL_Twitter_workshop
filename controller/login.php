@@ -14,14 +14,14 @@ if ("POST" === $_SERVER['REQUEST_METHOD']) {
         $email = $_POST['email'];
         $password = $_POST['password'];
 
-        $result = User::loadUserByEmail($conn, $email);
+        $user = User::loadUserByEmail($conn, $email);
 
-        if ($result !== null) {
-            $verify = $result->passwordVerify($password);
+        if ($user !== null) {
+            $verify = $user->passwordVerify($password);
             if ($verify) {
                 $_SESSION['logged'] = true;
-                $_SESSION['username'] = $result->getUsername();
-                $_SESSION['userId'] = $result->getId();
+                $_SESSION['username'] = $user->getUsername();
+                $_SESSION['userId'] = $user->getId();
                 unset($_SESSION['error']);
                 
                 $tweets = Tweet::loadAllTweets($conn);
